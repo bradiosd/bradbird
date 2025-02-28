@@ -14,9 +14,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <nav className="border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4">
           {/* TODO: Add theme toggle back in once we have light images */}
-          {/* <div className="h-16 flex items-center justify-end">
+          <div className="h-16 flex items-center justify-end">
             <ThemeToggle />
-          </div> */}
+          </div>
         </div>
       </nav>
 

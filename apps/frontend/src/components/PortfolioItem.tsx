@@ -2,6 +2,7 @@ import React from 'react';
 
 interface PortfolioItemProps {
   title: string;
+  jobTitle?: string;
   description: string;
   image?: string;
   tags: string[];
@@ -16,6 +17,7 @@ interface PortfolioItemProps {
 
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
   title,
+  jobTitle,
   description,
   image,
   tags,
@@ -49,6 +51,9 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
         {title}
       </h3>
+      {jobTitle && (
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{jobTitle}</p>
+      )}
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{date}</p>
       <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
       <div className="flex flex-wrap gap-2">
