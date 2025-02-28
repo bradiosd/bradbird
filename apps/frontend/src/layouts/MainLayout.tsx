@@ -1,6 +1,6 @@
-import React from "react";
-import ProfileSection from "../components/ProfileSection";
-import ThemeToggle from "../components/ThemeToggle";
+import React from 'react';
+import ProfileSection from '../components/ProfileSection';
+import ThemeToggle from '../components/ThemeToggle';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -29,7 +29,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             />
 
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Subscribe to Newsletter</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Subscribe to Newsletter
+              </h3>
               <form className="space-y-3">
                 <input
                   type="email"
@@ -46,7 +48,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
 
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Connect With Me</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Connect With Me
+              </h3>
               <div className="space-y-3">
                 <a
                   href="https://github.com/bradbird"
@@ -71,9 +75,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </aside>
 
           {/* Main Content */}
-          <main className="flex-1 min-w-0">
-            {children}
-          </main>
+          <main className="flex-1 min-w-0">{children}</main>
         </div>
       </div>
     </div>
