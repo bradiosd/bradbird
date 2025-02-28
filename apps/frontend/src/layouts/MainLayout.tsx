@@ -40,6 +40,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <main className="col-span-7 md:col-span-4 lg:col-span-5">{children}</main>
         </div>
       </div>
+
+      <footer className="bg-gray-800 text-white py-4">
+        <div className="max-w-7xl mx-auto text-center py-10">
+          <p>&copy; 2024-{new Date().getFullYear()}. Developed by Brad Bird. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };

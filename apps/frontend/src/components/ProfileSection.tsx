@@ -15,7 +15,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center p-6">
-      <div className="w-32 h-32 mb-4 overflow-hidden rounded-full">
+      <div className="w-48 h-48 mb-4 overflow-hidden rounded-full">
         {imageUrl && (
           <img
             src={imageUrl}
