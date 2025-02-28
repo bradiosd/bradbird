@@ -1,4 +1,0 @@
-.env*
-!*.example
-/tooling/k6
-/node_modules

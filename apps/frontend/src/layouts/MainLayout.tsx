@@ -32,6 +32,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             name="Brad Bird"
             location="San Diego, CA"
             description="Software engineer and blockchain enthusiast passionate about building the future of technology."
+            imageUrl="./bradiosd.jpeg"
           />
 
           <div className="newsletter-section">
@@ -45,13 +46,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <div className="social-links">
             <h3>Connect With Me</h3>
             <div className="social-icons">
-              <a href="#" className="social-icon">
+              <a href="https://github.com/bradbird" className="social-icon">
                 GitHub
               </a>
-              <a href="#" className="social-icon">
+              <a href="https://linkedin.com/in/bradbird" className="social-icon">
                 LinkedIn
               </a>
-              <a href="#" className="social-icon">
+              <a href="https://twitter.com/bradbird" className="social-icon">
                 Twitter
               </a>
             </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import profileImage from '../assets/bradiosd.jpeg';
 
 interface ProfileSectionProps {
   name: string;
@@ -12,7 +11,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   name,
   location,
   description,
-  imageUrl = profileImage
+  imageUrl,
 }) => {
   return (
     <div className="profile-section">
