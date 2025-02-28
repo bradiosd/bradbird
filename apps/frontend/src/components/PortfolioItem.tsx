@@ -27,7 +27,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
   const content = (
     <>
-      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-600 dark:bg-gray-800/50">
+      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-blue-100/20 dark:bg-gray-800/50">
         {image ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <img

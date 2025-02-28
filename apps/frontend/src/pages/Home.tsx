@@ -3,7 +3,7 @@ import PortfolioItem from '../components/PortfolioItem';
 
 const Home: React.FC = () => {
   const portfolioItems = {
-    startups: [
+    companies: [
       {
         title: '128 Bit Studios',
         description: 'Working as independent contractors building web based applications, software, games and mobile apps. We have a strong suite of skills being able to deliver end-to-end solutions that are scalable and reliable.',
@@ -30,15 +30,6 @@ const Home: React.FC = () => {
         link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
         date: '2020 - 2021',
         imagePosition: { x: 50, y: 50, scale: 1.5 },
-      },
-      {
-        title: 'MotoStats',
-        description: 'A petrol-head community hub and vehicle specs database. We collate data from the most up to date sources and present it in a simple to use mobile app. We also provide community driven map data for the best driving and motorcycling routes in the country.',
-        image: '/portfolio/motostats.png',
-        tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
-        date: '2014 - 2016',
-        imagePosition: { x: 50, y: 50, scale: 0.6 },
       },
       {
         title: 'Zesty Designs',
@@ -69,6 +60,17 @@ const Home: React.FC = () => {
         date: 'Apr 2019 - Present',
         imagePosition: { x: 50, y: 50, scale: 1.4 },
       }
+    ],
+    soloStartups: [
+      {
+        title: 'MotoStats',
+        description: 'A petrol-head community hub and vehicle specs database. We collate data from the most up to date sources and present it in a simple to use mobile app. We also provide community driven map data for the best driving and motorcycling routes in the country.',
+        image: '/portfolio/motostats.png',
+        tags: [],
+        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        date: '2014 - 2016',
+        imagePosition: { x: 50, y: 50, scale: 0.6 },
+      },
     ],
     clientWork: [
       {
@@ -189,7 +191,7 @@ const Home: React.FC = () => {
     items.length > 0 ? (
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{title}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {items.map((item, index) => (
             <PortfolioItem
               key={index}
@@ -210,10 +212,11 @@ const Home: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       {renderSection('Joint Startups', portfolioItems.jointStartups)}
-      {renderSection('Startups', portfolioItems.startups)}
+      {renderSection('Solo Startups', portfolioItems.soloStartups)}
+      {renderSection('Companies', portfolioItems.companies)}
       {renderSection('Client Work', portfolioItems.clientWork)}
       {renderSection('Free Apps', portfolioItems.freeApps)}
-      {renderSection('Jobs', portfolioItems.jobs)}
+      {renderSection('Full Time Jobs', portfolioItems.jobs)}
     </div>
   );
 };
