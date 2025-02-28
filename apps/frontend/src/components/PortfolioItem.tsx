@@ -2,12 +2,12 @@ import React from 'react';
 
 interface PortfolioItemProps {
   title: string;
-  jobTitle?: string;
   description: string;
   image?: string;
   tags: string[];
   link?: string;
   date: string;
+  jobTitle?: string;
   imagePosition: {
     x: number;
     y: number;
@@ -17,19 +17,19 @@ interface PortfolioItemProps {
 
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
   title,
-  jobTitle,
   description,
   image,
   tags,
   link,
+  jobTitle,
   date,
   imagePosition,
 }) => {
-  const modifiedImage = image ? image.replace(/(\.[^.]+)$/, '-dark$1') : undefined;
+  const modifiedImage = image ? image.replace(/(\.png)$/, '-dark$1') : undefined;
 
   const content = (
     <>
-      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-blue-100/20 dark:bg-gray-800/50">
+      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-100/50 dark:bg-gray-800/50">
         {image ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <img
@@ -72,7 +72,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   return link ? (
     <a
       href={link}
-      className="block p-6 rounded-xl hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
+      className="block p-4 rounded-xl hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
       target="_blank"
       rel="noopener noreferrer"
     >

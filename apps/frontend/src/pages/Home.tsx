@@ -219,7 +219,7 @@ const Home: React.FC = () => {
   const renderSection = (title: string, items: any[]) => (
     items.length > 0 ? (
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white mx-6">{title}</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white mx-4">{title}</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {items.map((item, index) => (
             <PortfolioItem
@@ -240,7 +240,7 @@ const Home: React.FC = () => {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-6 mx-auto py-8">
       {renderSection('Joint Startups', portfolioItems.jointStartups)}
       {renderSection('Solo Startups', portfolioItems.soloStartups)}
       {renderSection('Companies', portfolioItems.companies)}
