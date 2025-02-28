@@ -6,6 +6,12 @@ interface PortfolioItemProps {
   image?: string;
   tags: string[];
   link?: string;
+  date: string;
+  imagePosition: {
+    x: number;
+    y: number;
+    scale: number;
+  };
 }
 
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
@@ -14,12 +20,26 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   image,
   tags,
   link,
+  date,
+  imagePosition,
 }) => {
+  const modifiedImage = image ? image.replace(/(\.[^.]+)$/, '-dark$1') : undefined;
+
   const content = (
     <>
-      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-100/50 dark:bg-gray-800/50">
+      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-600 dark:bg-gray-800/50">
         {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={modifiedImage}
+              alt={title}
+              className="max-w-full max-h-full object-contain"
+              style={{
+                transform: `scale(${imagePosition.scale})`,
+                transformOrigin: 'center',
+              }}
+            />
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <span className="text-gray-400 dark:text-gray-500">No image</span>
@@ -29,6 +49,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
         {title}
       </h3>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{date}</p>
       <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
       <div className="flex flex-wrap gap-2">
         {tags.map((tag, index) => (
