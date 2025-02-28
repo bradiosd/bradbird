@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/Home.css";
 import PortfolioItem from "../components/PortfolioItem";
 
 const Home: React.FC = () => {

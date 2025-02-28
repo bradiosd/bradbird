@@ -1,13 +1,15 @@
 import React from "react";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
-import "./App.css";
+import { ThemeProvider } from "./providers/ThemeProvider";
 
 function App() {
   return (
-    <MainLayout>
-      <Home />
-    </MainLayout>
+    <ThemeProvider>
+      <MainLayout>
+        <Home />
+      </MainLayout>
+    </ThemeProvider>
   );
 }
 
