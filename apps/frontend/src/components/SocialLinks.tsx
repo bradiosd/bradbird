@@ -118,8 +118,8 @@ const SocialLinks: React.FC = () => {
 
   return (
     <div className="p-10 space-y-8">
-      {renderSection('BradioSD Socials', socialLinks.personal)}
-      {renderSection('128 Bit Studios Socials', socialLinks.company)}
+      {renderSection('Brad Bird', socialLinks.personal)}
+      {renderSection('128 Bit Studios', socialLinks.company)}
     </div>
   );
 };

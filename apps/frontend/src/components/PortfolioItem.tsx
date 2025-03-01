@@ -1,43 +1,51 @@
 import React from 'react';
+import { useTheme } from '../providers/ThemeProvider';
 
-interface PortfolioItemProps {
-  title: string;
-  description: string;
-  image?: string;
-  tags: string[];
-  link?: string;
-  date: string;
-  jobTitle?: string;
-  imagePosition: {
+interface ImageConfig {
+  path: string;
+  position: {
     x: number;
     y: number;
     scale: number;
   };
 }
 
+interface PortfolioItemProps {
+  title: string;
+  description: string;
+  images?: {
+    light: ImageConfig;
+    dark: ImageConfig;
+  };
+  tags: string[];
+  link?: string;
+  date: string;
+  jobTitle?: string;
+}
+
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
   title,
   description,
-  image,
+  images,
   tags,
   link,
   jobTitle,
   date,
-  imagePosition,
 }) => {
-  const modifiedImage = image ? image.replace(/(\.png)$/, '-dark$1') : undefined;
+  const { theme } = useTheme();
+  const currentImage = images ? (theme === 'light' ? images.light : images.dark) : undefined;
 
   const content = (
     <>
-      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-100/50 dark:bg-gray-800/50">
-        {image ? (
+      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-800/50 dark:bg-gray-800/50">
+        {currentImage?.path ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <img
-              src={modifiedImage}
+              src={currentImage.path}
               alt={title}
               className="max-w-full max-h-full object-contain"
               style={{
-                transform: `scale(${imagePosition.scale})`,
+                transform: `scale(${currentImage.position.scale})`,
                 transformOrigin: 'center',
               }}
             />

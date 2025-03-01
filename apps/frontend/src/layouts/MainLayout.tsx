@@ -32,7 +32,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <source src="/videos/boywithgameboy.mp4" type="video/mp4" /> */}
         </video>
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gray-900/95" />
+        <div className="absolute inset-0 bg-gray-100/95 dark:bg-gray-900/95" />
       </div>
 
       {/* Content */}
