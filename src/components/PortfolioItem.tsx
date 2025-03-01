@@ -88,7 +88,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       {content}
     </a>
   ) : (
-    <div className="p-6 rounded-xl">{content}</div>
+    <div className="rounded-xl">{content}</div>
   );
 };
 
