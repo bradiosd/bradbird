@@ -68,7 +68,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 name="Brad Bird"
                 location="London, UK"
                 description="Software engineering multi-tool. SaaS startup guru. Keen interest in cybersecurity. Blockchain enthusiast. AI lover."
-                imageUrl="./bradiosd.jpeg"
+                imageUrl="/bradiosd.jpeg"
               />
 
               <SubscribeWidget />
@@ -82,7 +82,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         </div>
 
         <footer className="bg-gray-800/90 text-white py-4">
-          <div className="max-w-7xl mx-auto text-center py-10">
+          <div className="max-w-7xl mx-auto text-center py-4">
             <p>&copy; 2024-{new Date().getFullYear()}. Developed by Brad Bird. All rights reserved.</p>
           </div>
         </footer>

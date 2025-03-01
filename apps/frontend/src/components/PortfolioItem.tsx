@@ -81,7 +81,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   return link ? (
     <a
       href={link}
-      className="block p-4 rounded-xl hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
+      className="block rounded-xl hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
       target="_blank"
       rel="noopener noreferrer"
     >

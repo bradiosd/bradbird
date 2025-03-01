@@ -1944,6 +1944,18 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@tabler/icons-react@^3.30.0":
+  version "3.30.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-3.30.0.tgz#38159e19aa0c743182796193dd0bef6595de9a29"
+  integrity sha512-9KZ9D1UNAyjlLkkYp2HBPHdf6lAJ2aelDqh8YYAnnmLF3xwprWKxxW8+zw5jlI0IwdfN4XFFuzqePkaw+DpIOg==
+  dependencies:
+    "@tabler/icons" "3.30.0"
+
+"@tabler/icons@3.30.0":
+  version "3.30.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.30.0.tgz#4f80f52cc6355b440a4ee0dadd4c3e3775e50663"
+  integrity sha512-c8OKLM48l00u9TFbh2qhSODMONIzML8ajtCyq95rW8vzkWcBrKRPM61tdkThz2j4kd5u17srPGIjqdeRUZdfdw==
+
 "@tailwindcss/node@4.0.9":
   version "4.0.9"
   resolved "https://registry.yarnpkg.com/@tailwindcss/node/-/node-4.0.9.tgz#27f08681b2cf6197a9c4c0ce0a0cb8dd16b3aaaf"
@@ -6915,6 +6927,14 @@ motion-utils@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.0.0.tgz#fabf79f4f1c818720a1b70f615e2a1768f396ac0"
   integrity sha512-MNFiBKbbqnmvOjkPyOKgHUp3Q6oiokLkI1bEwm5QA28cxMZrv0CbbBGDNmhF6DIXsi1pCQBSs0dX8xjeER1tmA==
+
+motion@^12.4.7:
+  version "12.4.7"
+  resolved "https://registry.yarnpkg.com/motion/-/motion-12.4.7.tgz#e65478c3b7d6c4cd08fe43ae301f210553d53b5b"
+  integrity sha512-mhegHAbf1r80fr+ytC6OkjKvIUegRNXKLWNPrCN2+GnixlNSPwT03FtKqp9oDny1kNcLWZvwbmEr+JqVryFrcg==
+  dependencies:
+    framer-motion "^12.4.7"
+    tslib "^2.4.0"
 
 ms@2.0.0:
   version "2.0.0"
