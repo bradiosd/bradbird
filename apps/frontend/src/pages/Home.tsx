@@ -93,7 +93,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://quoteawayai.com',
         date: 'Jan 2025 - Present',
       },
       {
