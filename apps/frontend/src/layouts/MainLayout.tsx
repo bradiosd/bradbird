@@ -9,7 +9,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const toggleVideo = () => {
     setIsVideoPlaying(!isVideoPlaying);
@@ -42,7 +42,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <div className="h-16 flex items-center justify-end space-x-4">
               <button
                 onClick={toggleVideo}
-                className="p-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                 title={isVideoPlaying ? "Pause background video" : "Play background video"}
               >
                 {isVideoPlaying ? (

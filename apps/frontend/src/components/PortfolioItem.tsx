@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '../providers/ThemeProvider';
+import { Div } from "./ui/moving-border";
 
 interface ImageConfig {
   path: string;
@@ -37,7 +38,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
   const content = (
     <>
-      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-800/50 dark:bg-gray-800/50">
+      <div className="relative w-full h-48 overflow-hidden rounded-lg bg-gray-800/50 dark:bg-gray-800/50">
         {currentImage?.path ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <img
@@ -56,7 +57,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
           </div>
         )}
       </div>
-      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+      <h3 className="mt-4 text-xl font-semibold mb-2 text-gray-900 dark:text-white">
         {title}
       </h3>
       {jobTitle && (
