@@ -19,7 +19,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://128bitstudios.co.uk',
         date: 'Aug 2017 - Present',
       },
       {
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://smartbird.io',
         date: 'Jul 2024 - Present',
       },
       {
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://www.instagram.com/bradiosdrones',
         date: '2020 - 2021',
       },
       {
@@ -73,7 +73,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: null,
         date: 'Aug 2006 - Aug 2017',
       }
     ],
@@ -111,7 +111,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://yourcvvideo.com',
         date: 'Apr 2019 - Present',
       }
     ],
@@ -149,7 +149,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: null,
         date: '2014 - 2016',
       }
     ],
@@ -169,7 +169,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://thisisuntapped.com',
         date: 'Jun 2021 - Present',
       },
       {
@@ -187,7 +187,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://www.hl.co.uk',
         date: 'Jul 2022 - Jun 2023',
       },
       {
@@ -205,7 +205,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://itriom.com',
         date: 'Mar 2022 - May 2022',
       },
       {
@@ -223,7 +223,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://defra.gov.uk',
         date: 'Dec 2021 - Mar 2022',
       },
       {
@@ -241,7 +241,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://www.pentaconsulting.com',
         date: 'Mar 2021 - Jun 2021',
       },
       {
@@ -259,7 +259,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://www.gov.uk/government/organisations/veterinary-medicines-directorate',
         date: 'Feb 2019 - Mar 2021',
       },
       {
@@ -277,7 +277,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://www.esure.com',
         date: 'Nov 2018 - Feb 2019',
       },
       {
@@ -295,7 +295,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://www.shell.co.uk/electric-vehicle-charging.html',
         date: 'May 2018 - Nov 2018',
       },
       {
@@ -313,7 +313,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://www.lshtm.ac.uk',
         date: 'Oct 2017 - May 2018',
       }
     ],
@@ -333,7 +333,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://paytently.com',
         date: 'Jun 2023 - Jul 2024',
       },
       {
@@ -351,7 +351,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://sotechnology.co.uk',
         date: 'Jan 2015 - Oct 2017',
       },
       {
@@ -369,7 +369,7 @@ const Home: React.FC = () => {
           }
         },
         tags: [],
-        link: 'https://www.linkedin.com/in/bradbird1990/details/experience/',
+        link: 'https://weknowdata.net',
         date: 'Feb 2013 - Jan 2016',
       }
     ],
@@ -379,8 +379,8 @@ const Home: React.FC = () => {
   const renderSection = (title: string, items: any[]) => (
     items.length > 0 ? (
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white mx-4">{title}</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{title}</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {items.map((item, index) => (
             <PortfolioItem
               key={index}
@@ -399,13 +399,23 @@ const Home: React.FC = () => {
   );
 
   return (
-    <div className="px-6 mx-auto py-8">
-      {renderSection('Joint Startups', portfolioItems.jointStartups)}
-      {renderSection('Solo Startups', portfolioItems.soloStartups)}
-      {renderSection('Companies', portfolioItems.companies)}
-      {renderSection('Direct Client Work', portfolioItems.clientWork)}
-      {renderSection('Free Apps', portfolioItems.freeApps)}
-      {renderSection('Full Time Jobs', portfolioItems.jobs)}
+    <div className="px-10">
+      <nav className="flex items-center space-x-2 py-4">
+        <a href="/" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">Home</a>
+        <span className="text-gray-500">/</span>
+        <span className="text-gray-500">Portfolio</span>
+      </nav>
+      <header className="py-4">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white">My Lifes Work</h1>
+      </header>
+      <div className="mx-auto py-8">
+        {renderSection('Joint Startups', portfolioItems.jointStartups)}
+        {renderSection('Solo Startups', portfolioItems.soloStartups)}
+        {renderSection('Companies', portfolioItems.companies)}
+        {renderSection('Direct Client Work', portfolioItems.clientWork)}
+        {renderSection('Free Apps', portfolioItems.freeApps)}
+        {renderSection('Full Time Jobs', portfolioItems.jobs)}
+      </div>
     </div>
   );
 };
