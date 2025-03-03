@@ -1,4 +1,5 @@
 import React from 'react';
+import { GB } from 'country-flag-icons/react/3x2';
 
 interface ProfileSectionProps {
   name: string;
@@ -28,7 +29,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
         {name}
       </h2>
       <p className="text-gray-600 dark:text-gray-300 mb-3 flex items-center gap-2">
-        <span role="img" aria-label="United Kingdom">🇬🇧</span> {location}
+        <GB className="w-4 h-4" /> {location}
       </p>
       <p className="text-gray-700 dark:text-gray-200 text-center">
         {description}

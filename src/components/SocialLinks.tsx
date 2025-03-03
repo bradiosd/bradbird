@@ -1,6 +1,6 @@
 import React from 'react';
-import { FaYoutube, FaInstagram, FaReddit, FaGithub, FaTwitter, FaGlobe, FaFacebook, FaLinkedin, FaGooglePlay } from 'react-icons/fa';
-import { FaOdysee } from "react-icons/fa6";
+import { FaYoutube, FaInstagram, FaReddit, FaGithub, FaGlobe, FaFacebook, FaLinkedin, FaGooglePlay } from 'react-icons/fa';
+import { FaOdysee, FaXTwitter } from "react-icons/fa6";
 
 const socialLinks = {
   personal: [
@@ -29,10 +29,10 @@ const socialLinks = {
       color: ''
     },
     {
-      title: 'Twitter',
-      url: 'https://twitter.com/bradiosd',
-      icon: FaTwitter,
-      color: 'text-blue-400'
+      title: 'X',
+      url: 'https://x.com/bradiosd',
+      icon: FaXTwitter,
+      color: 'text-gray-900 dark:text-white'
     },
     {
       title: 'Website',
@@ -67,10 +67,10 @@ const socialLinks = {
       color: 'text-blue-600'
     },
     {
-      title: 'Twitter',
-      url: 'https://twitter.com/128bitstudios',
-      icon: FaTwitter,
-      color: 'text-blue-400'
+      title: 'X',
+      url: 'https://x.com/128bitstudios',
+      icon: FaXTwitter,
+      color: 'text-gray-900 dark:text-white'
     },
     {
       title: 'GitHub',
