@@ -30,7 +30,7 @@ const socialLinks = {
     },
     {
       title: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/bradbird1990/',
+      url: 'https://www.linkedin.com/in/bradbird1990',
       icon: FaLinkedin,
       color: 'text-blue-700'
     },
@@ -42,7 +42,7 @@ const socialLinks = {
     },
     {
       title: 'Website',
-      url: 'https://bradio.io',
+      url: 'https://bradbird.co.uk',
       icon: FaGlobe,
       color: 'text-green-600'
     },
