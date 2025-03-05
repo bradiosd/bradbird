@@ -29,6 +29,12 @@ const socialLinks = {
       color: ''
     },
     {
+      title: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/bradbird1990/',
+      icon: FaLinkedin,
+      color: 'text-blue-700'
+    },
+    {
       title: 'X',
       url: 'https://x.com/bradiosd',
       icon: FaXTwitter,
