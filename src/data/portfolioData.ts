@@ -129,7 +129,7 @@ export const portfolioItems = {
       },
       tags: ['PHP', 'WordPress', 'Security', 'AWS', 'Cybersecurity'],
       link: 'https://wpscanner.128bitstudios.co.uk',
-      date: '2025 - Present',
+      date: 'Dec 2025 - Present',
     },
     {
       title: 'MotoStats',
