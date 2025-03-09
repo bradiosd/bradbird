@@ -65,16 +65,6 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       )}
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{date}</p>
       <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
-      <div className="flex flex-wrap gap-2">
-        {tags.map((tag, index) => (
-          <span
-            key={index}
-            className="px-3 py-1 text-sm rounded-full text-gray-600 dark:text-gray-400"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
     </>
   );
 

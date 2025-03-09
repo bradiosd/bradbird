@@ -57,9 +57,6 @@ const Home: React.FC = () => {
 
   return (
     <div className="px-10">
-      <nav className="flex items-center space-x-2 py-4">
-        <a href="/" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">Home</a>
-      </nav>
       <header className="py-4">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white">My Story</h1>
       </header>
