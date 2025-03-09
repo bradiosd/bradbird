@@ -9,6 +9,7 @@ import {
   certificationData
 } from '../data/portfolioData';
 import { useSidebar } from '../layouts/MainLayout';
+import { useSkillFilter } from '../providers/SkillFilterProvider';
 
 // Helper function to compare dates for sorting
 const compareDates = (dateA: string, dateB: string) => {
@@ -49,6 +50,25 @@ const getAllWorkExperience = () => {
 const CV: React.FC = () => {
   const workExperience = getAllWorkExperience();
   const { setHideSidebar } = useSidebar();
+  const { selectedSkills, toggleSkill, clearSkills, isSkillSelected } = useSkillFilter();
+
+  // Flatten all skills into a single array for the filter
+  const allSkills = [
+    ...skillsData.languages,
+    ...skillsData.frameworks,
+    ...skillsData.tools,
+    ...skillsData.databases,
+    ...skillsData.cloud,
+    ...skillsData.testing,
+    ...skillsData.other
+  ].sort();
+
+  // Filter work experience based on selected skills
+  const filteredWorkExperience = selectedSkills.length > 0
+    ? workExperience.filter(job =>
+      job.tags && selectedSkills.some(skill => job.tags.includes(skill))
+    )
+    : workExperience;
 
   // Set hideSidebar to true when component mounts
   useEffect(() => {
@@ -62,6 +82,32 @@ const CV: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-10 py-4">
+      {/* Skills Filter */}
+      <section className="mb-8">
+        <div className="flex flex-wrap gap-2">
+          {allSkills.map((skill, index) => (
+            <button
+              key={index}
+              onClick={() => toggleSkill(skill)}
+              className={`px-3 py-1 rounded-full text-sm transition-colors duration-200 ${isSkillSelected(skill)
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+            >
+              {skill}
+            </button>
+          ))}
+          {selectedSkills.length > 0 && (
+            <button
+              onClick={clearSkills}
+              className="px-3 py-1 rounded-full text-sm bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-800/30 transition-colors duration-200"
+            >
+              Clear All Filters
+            </button>
+          )}
+        </div>
+      </section>
+
       {/* Header */}
       <header className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8">
         <div className="flex flex-col md:flex-row items-center gap-8">
@@ -111,18 +157,6 @@ const CV: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <div className="flex self-start">
-            {/* Add toggle button inline with the header */}
-            <div className="self-center md:self-start mt-4 md:mt-0">
-              <Link
-                to="/portfolio"
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200 flex items-center"
-              >
-                Toggle Portfolio
-              </Link>
-            </div>
-          </div>
         </div>
 
         {/* Summary */}
@@ -140,8 +174,14 @@ const CV: React.FC = () => {
           Work Experience
         </h2>
 
+        {filteredWorkExperience.length === 0 && selectedSkills.length > 0 && (
+          <div className="text-gray-600 dark:text-gray-400 py-4">
+            No work experience found with the selected skills: {selectedSkills.join(', ')}
+          </div>
+        )}
+
         <div className="space-y-8">
-          {workExperience.map((job, index) => (
+          {filteredWorkExperience.map((job, index) => (
             <div key={index} className="grid grid-cols-1 md:grid-cols-6 gap-4">
               <div className="md:col-span-1 text-gray-500 dark:text-gray-400">
                 <div className="text-sm">{job.date}</div>
@@ -162,7 +202,10 @@ const CV: React.FC = () => {
                     {job.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-400"
+                        className={`px-2 py-1 text-xs rounded-full ${selectedSkills.includes(tag)
+                          ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold'
+                          : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                          }`}
                       >
                         {tag}
                       </span>
@@ -246,7 +289,10 @@ const CV: React.FC = () => {
               {skillsData.languages.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full text-sm"
+                  className={`px-3 py-1 rounded-full text-sm ${isSkillSelected(skill)
+                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold'
+                    : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                    }`}
                 >
                   {skill}
                 </span>
@@ -260,7 +306,10 @@ const CV: React.FC = () => {
               {skillsData.frameworks.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-full text-sm"
+                  className={`px-3 py-1 rounded-full text-sm ${isSkillSelected(skill)
+                    ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 font-semibold'
+                    : 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
+                    }`}
                 >
                   {skill}
                 </span>
@@ -269,12 +318,15 @@ const CV: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">DevOps & CI/CD Tools</h3>
+            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Tools & DevOps</h3>
             <div className="flex flex-wrap gap-2">
               {skillsData.tools.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-full text-sm"
+                  className={`px-3 py-1 rounded-full text-sm ${isSkillSelected(skill)
+                    ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-semibold'
+                    : 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400'
+                    }`}
                 >
                   {skill}
                 </span>
@@ -288,7 +340,10 @@ const CV: React.FC = () => {
               {skillsData.databases.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-500 rounded-full text-sm"
+                  className={`px-3 py-1 rounded-full text-sm ${isSkillSelected(skill)
+                    ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 font-semibold'
+                    : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400'
+                    }`}
                 >
                   {skill}
                 </span>
@@ -302,7 +357,10 @@ const CV: React.FC = () => {
               {skillsData.cloud.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-full text-sm"
+                  className={`px-3 py-1 rounded-full text-sm ${isSkillSelected(skill)
+                    ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold'
+                    : 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
+                    }`}
                 >
                   {skill}
                 </span>
@@ -311,12 +369,32 @@ const CV: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Testing & QA</h3>
+            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Testing</h3>
             <div className="flex flex-wrap gap-2">
               {skillsData.testing.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 rounded-full text-sm"
+                  className={`px-3 py-1 rounded-full text-sm ${isSkillSelected(skill)
+                    ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-semibold'
+                    : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+                    }`}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="md:col-span-2">
+            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Other Technical Skills</h3>
+            <div className="flex flex-wrap gap-2">
+              {skillsData.other.map((skill, index) => (
+                <span
+                  key={index}
+                  className={`px-3 py-1 rounded-full text-sm ${isSkillSelected(skill)
+                    ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 font-semibold'
+                    : 'bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400'
+                    }`}
                 >
                   {skill}
                 </span>
@@ -325,12 +403,12 @@ const CV: React.FC = () => {
           </div>
 
           <div className="md:col-span-2 lg:col-span-3">
-            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Other Technologies</h3>
+            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Soft Skills</h3>
             <div className="flex flex-wrap gap-2">
-              {skillsData.other.map((skill, index) => (
+              {skillsData.soft.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full text-sm"
+                  className="px-3 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-sm"
                 >
                   {skill}
                 </span>
@@ -340,35 +418,17 @@ const CV: React.FC = () => {
         </div>
       </section >
 
-      {/* Other Skills */}
-      < section className="mb-12" >
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-          Other Skills
-        </h2>
-
-        <div className="flex flex-wrap gap-3">
-          {skillsData.soft.map((skill, index) => (
-            <span
-              key={index}
-              className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section >
-
       {/* Interests */}
-      < section >
+      < section className="mb-12" >
         <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
           Interests
         </h2>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2">
           {interestsData.map((interest, index) => (
             <span
               key={index}
-              className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm"
+              className="px-3 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-sm"
             >
               {interest}
             </span>

@@ -1,15 +1,32 @@
 import React from 'react';
 import PortfolioItem from '../components/PortfolioItem';
 import { portfolioItems } from '../data/portfolioData';
-import { Link } from 'react-router-dom';
+import { useSkillFilter } from '../providers/SkillFilterProvider';
 
 const Portfolio: React.FC = () => {
-  const renderSection = (title: string, items: any[]) => (
-    items.length > 0 ? (
+  const { selectedSkills } = useSkillFilter();
+
+  // Filter items based on selected skills
+  const filterItemsBySkills = (items: any[]) => {
+    if (selectedSkills.length === 0) return items;
+    return items.filter(item =>
+      item.tags && selectedSkills.some(skill => item.tags.includes(skill))
+    );
+  };
+
+  const renderSection = (title: string, items: any[]) => {
+    const filteredItems = filterItemsBySkills(items);
+
+    // Don't render section if no items match the filter
+    if (filteredItems.length === 0) return null;
+
+    return (
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{title}</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          {title}
+        </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {items.map((item, index) => (
+          {filteredItems.map((item, index) => (
             <PortfolioItem
               key={index}
               title={item.title}
@@ -19,25 +36,20 @@ const Portfolio: React.FC = () => {
               tags={item.tags}
               link={item.link}
               date={item.date}
+              highlightedSkills={selectedSkills}
             />
           ))}
         </div>
       </div>
-    ) : null
-  );
+    );
+  };
 
   return (
     <div className="px-10">
-      <div className="flex justify-between items-center py-4">
+      <div className="py-4">
         <header>
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">My Lifes Work</h1>
         </header>
-        <Link
-          to="/cv"
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200 flex items-center"
-        >
-          Toggle CV
-        </Link>
       </div>
       <div className="mx-auto py-8">
         {renderSection('Joint Startups', portfolioItems.jointStartups)}

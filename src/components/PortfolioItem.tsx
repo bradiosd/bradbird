@@ -22,6 +22,7 @@ interface PortfolioItemProps {
   link?: string;
   date: string;
   jobTitle?: string;
+  highlightedSkills?: string[];
 }
 
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
@@ -32,6 +33,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   link,
   jobTitle,
   date,
+  highlightedSkills = [],
 }) => {
   const { theme } = useTheme();
   const currentImage = images ? (theme === 'light' ? images.light : images.dark) : undefined;
@@ -65,6 +67,23 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       )}
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{date}</p>
       <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
+
+      {/* Display tags with highlighted skills */}
+      {tags && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-2">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className={`px-2 py-1 text-xs rounded-full ${highlightedSkills.includes(tag)
+                ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                }`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </>
   );
 

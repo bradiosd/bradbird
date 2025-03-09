@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import MainLayout from './layouts/MainLayout';
 import Portfolio from './pages/Portfolio';
 import { ThemeProvider } from './providers/ThemeProvider';
+import { SkillFilterProvider } from './providers/SkillFilterProvider';
 import Home from './pages/Home';
 import { initializeGoogleAnalytics, pageView } from './lib/analytics';
 import { config } from './config';
@@ -29,19 +30,21 @@ function App() {
 
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <AnalyticsWrapper>
-          <MainLayout>
-            <Routes>
-              <Route path="/home" element={<Home />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/cv" element={<CV />} />
-              <Route path="/" element={<Navigate to="/home" replace />} />
-            </Routes>
-          </MainLayout>
-        </AnalyticsWrapper>
-      </BrowserRouter >
-    </ThemeProvider >
+      <SkillFilterProvider>
+        <BrowserRouter>
+          <AnalyticsWrapper>
+            <MainLayout>
+              <Routes>
+                <Route path="/home" element={<Home />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/cv" element={<CV />} />
+                <Route path="/" element={<Navigate to="/home" replace />} />
+              </Routes>
+            </MainLayout>
+          </AnalyticsWrapper>
+        </BrowserRouter>
+      </SkillFilterProvider>
+    </ThemeProvider>
   );
 }
 
