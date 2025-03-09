@@ -432,7 +432,7 @@ export const skillsData = {
 
 // Updated interests
 export const interestsData = [
-  'Home automation and IoT systems', 'PC Gaming', 'OffSec Security'
+  'Home automation', 'PC Gaming', 'Cybersecurity', 'Blockchain', 'AI'
 ];
 
 // Updated personal data

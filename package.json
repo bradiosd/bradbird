@@ -17,6 +17,7 @@
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.5.18",
     "framer-motion": "^12.4.7",
+    "html2pdf.js": "^0.10.3",
     "lucide-react": "^0.323.0",
     "motion": "^12.4.7",
     "postcss": "^8.5.0",
