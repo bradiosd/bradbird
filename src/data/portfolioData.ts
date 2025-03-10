@@ -115,7 +115,7 @@ export const portfolioItems = {
   soloStartups: [
     {
       title: 'WordPress Scanner',
-      jobTitle: '',
+      jobTitle: 'Founder',
       description: 'A comprehensive WordPress security assessment tool that helps identify vulnerabilities and security issues in WordPress sites. The scanner detects popular plugins and themes, providing detailed analysis of potential security risks. Each scan generates a comprehensive PDF report of findings along with a step-by-step guide for remediation, making security accessible for WordPress site owners.',
       images: {
         light: {
@@ -133,7 +133,7 @@ export const portfolioItems = {
     },
     {
       title: 'MotoStats',
-      jobTitle: '',
+      jobTitle: 'Founder',
       description: 'A petrol-head community hub and vehicle specs database. We collate data from the most up to date sources and present it in a simple to use mobile app. We also provide community driven map data for the best driving and motorcycling routes in the country.',
       images: {
         light: {
