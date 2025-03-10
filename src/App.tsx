@@ -35,10 +35,10 @@ function App() {
           <AnalyticsWrapper>
             <MainLayout>
               <Routes>
-                <Route path="/home" element={<Home />} />
+                {/* <Route path="/home" element={<Home />} /> */}
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/cv" element={<CV />} />
-                <Route path="/" element={<Navigate to="/home" replace />} />
+                <Route path="/" element={<Navigate to="/portfolio" replace />} />
               </Routes>
             </MainLayout>
           </AnalyticsWrapper>

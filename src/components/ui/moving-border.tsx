@@ -49,7 +49,7 @@ export function Div({
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
-              "h-48 w-96 opacity-[0.6] bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]",
+              "h-48 w-96 opacity-[0.6] bg-[radial-gradient(var(--gray-400)_40%,transparent_60%)] dark:bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]",
               borderClassName
             )}
           />
@@ -58,7 +58,7 @@ export function Div({
 
       <div
         className={cn(
-          "relative bg-slate-900/[0.8] border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
+          "relative bg-slate-900/[0.8] border border-gray-300 dark:border-gray-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
           className
         )}
         style={{

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from '../providers/ThemeProvider';
 import { Div } from "./ui/moving-border";
+import { ExternalLink } from 'lucide-react';
 
 interface ImageConfig {
   path: string;
@@ -38,9 +39,16 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   const { theme } = useTheme();
   const currentImage = images ? (theme === 'light' ? images.light : images.dark) : undefined;
 
+  const handleLinkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   const content = (
     <>
-      <div className="relative w-full h-48 overflow-hidden rounded-lg bg-gray-800/50 dark:bg-gray-800/50">
+      <div className="relative w-full h-48 overflow-hidden rounded-lg bg-white dark:bg-gray-800/50">
         {currentImage?.path ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <img
@@ -59,9 +67,20 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
           </div>
         )}
       </div>
-      <h3 className="mt-4 text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-        {title}
-      </h3>
+      <div className="mt-4 flex items-center justify-between">
+        <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+          {title}
+        </h3>
+        {link && (
+          <button
+            onClick={handleLinkClick}
+            className="text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+            aria-label="Visit link"
+          >
+            <ExternalLink size={18} />
+          </button>
+        )}
+      </div>
       {jobTitle && (
         <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{jobTitle}</p>
       )}
@@ -70,17 +89,10 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
     </>
   );
 
-  return link ? (
-    <a
-      href={link}
-      className="block rounded-xl hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+  return (
+    <div className="rounded-xl">
       {content}
-    </a>
-  ) : (
-    <div className="rounded-xl">{content}</div>
+    </div>
   );
 };
 
