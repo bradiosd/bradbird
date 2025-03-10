@@ -55,6 +55,9 @@ const CV: React.FC = () => {
   const cvRef = useRef<HTMLDivElement>(null);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const [hiddenItems, setHiddenItems] = useState<string[]>([]);
+  // Add state for editable fields
+  const [editableFields, setEditableFields] = useState<{ [key: string]: { title?: string, jobTitle?: string } }>({});
+  const [currentlyEditing, setCurrentlyEditing] = useState<{ id: string, field: 'title' | 'jobTitle' } | null>(null);
 
   // Flatten all skills into a single array for the filter
   const allSkills = [
@@ -89,6 +92,33 @@ const CV: React.FC = () => {
   const hiddenWorkExperience = workExperience.filter(job =>
     hiddenItems.includes(job.title)
   );
+
+  // Function to handle editing of job titles and job subtitles
+  const handleEdit = (jobId: string, field: 'title' | 'jobTitle', value: string) => {
+    setEditableFields(prev => ({
+      ...prev,
+      [jobId]: {
+        ...prev[jobId],
+        [field]: value
+      }
+    }));
+  };
+
+  // Function to start editing a field
+  const startEditing = (jobId: string, field: 'title' | 'jobTitle') => {
+    setCurrentlyEditing({ id: jobId, field });
+  };
+
+  // Function to stop editing a field
+  const stopEditing = () => {
+    setCurrentlyEditing(null);
+  };
+
+  // Function to get the display value for a field (edited or original)
+  const getDisplayValue = (job: any, field: 'title' | 'jobTitle') => {
+    const jobId = `${job.title}-${job.date}`;
+    return editableFields[jobId]?.[field] !== undefined ? editableFields[jobId][field] : job[field];
+  };
 
   // Function to handle PDF generation
   const generatePDF = () => {
@@ -307,7 +337,31 @@ const CV: React.FC = () => {
                 key={index}
                 className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm"
               >
-                <span>{job.title}</span>
+                <span>
+                  {currentlyEditing?.id === `${job.title}-${job.date}` && currentlyEditing?.field === 'title' ? (
+                    <input
+                      type="text"
+                      value={editableFields[`${job.title}-${job.date}`]?.title || job.title}
+                      onChange={(e) => handleEdit(`${job.title}-${job.date}`, 'title', e.target.value)}
+                      onBlur={stopEditing}
+                      autoFocus
+                      className="bg-transparent border-b border-gray-400 focus:outline-none focus:border-blue-500 w-full"
+                    />
+                  ) : (
+                    <>
+                      {getDisplayValue(job, 'title')}
+                      <button
+                        onClick={() => startEditing(`${job.title}-${job.date}`, 'title')}
+                        className="ml-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hide-in-pdf"
+                        title="Edit title"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                      </button>
+                    </>
+                  )}
+                </span>
                 <button
                   onClick={() => toggleItemVisibility(job.title)}
                   className="ml-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hide-in-pdf"
@@ -435,15 +489,65 @@ const CV: React.FC = () => {
           <div className="space-y-8">
             {filteredWorkExperience.map((job, index) => (
               <div key={index} className="grid grid-cols-1 md:grid-cols-6 gap-4 relative">
-                <div className="md:col-span-1 text-gray-500 dark:text-gray-400">
+                <div className="md:col-span-1 text-gray-500 dark:text-gray-400 mt-1">
                   <div className="text-sm">{job.date}</div>
                 </div>
 
                 <div className="md:col-span-5">
                   <div className="flex justify-between items-start">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {job.title}
-                      {job.jobTitle && <span className="ml-2 font-normal text-gray-600 dark:text-gray-400">— {job.jobTitle}</span>}
+                      {currentlyEditing?.id === `${job.title}-${job.date}` && currentlyEditing?.field === 'title' ? (
+                        <input
+                          type="text"
+                          value={editableFields[`${job.title}-${job.date}`]?.title || job.title}
+                          onChange={(e) => handleEdit(`${job.title}-${job.date}`, 'title', e.target.value)}
+                          onBlur={stopEditing}
+                          autoFocus
+                          className="bg-transparent border-b border-gray-400 focus:outline-none focus:border-blue-500 w-full"
+                        />
+                      ) : (
+                        <>
+                          {getDisplayValue(job, 'title')}
+                          <button
+                            onClick={() => startEditing(`${job.title}-${job.date}`, 'title')}
+                            className="ml-2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hide-in-pdf"
+                            title="Edit title"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                            </svg>
+                          </button>
+                        </>
+                      )}
+                      {job.jobTitle && (
+                        <span className="ml-2 font-normal text-gray-600 dark:text-gray-400">
+                          — {currentlyEditing?.id === `${job.title}-${job.date}` && currentlyEditing?.field === 'jobTitle' ? (
+                            <input
+                              type="text"
+                              value={editableFields[`${job.title}-${job.date}`]?.jobTitle || job.jobTitle}
+                              onChange={(e) => handleEdit(`${job.title}-${job.date}`, 'jobTitle', e.target.value)}
+                              onBlur={stopEditing}
+                              autoFocus
+                              className="bg-transparent border-b border-gray-400 focus:outline-none focus:border-blue-500"
+                            />
+                          ) : (
+                            <>
+                              {getDisplayValue(job, 'jobTitle')}
+                              {job.jobTitle && (
+                                <button
+                                  onClick={() => startEditing(`${job.title}-${job.date}`, 'jobTitle')}
+                                  className="ml-2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hide-in-pdf"
+                                  title="Edit job title"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                  </svg>
+                                </button>
+                              )}
+                            </>
+                          )}
+                        </span>
+                      )}
                     </h3>
                     <button
                       onClick={() => toggleItemVisibility(job.title)}
