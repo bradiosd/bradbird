@@ -58,6 +58,8 @@ const CV: React.FC = () => {
   // Add state for editable fields
   const [editableFields, setEditableFields] = useState<{ [key: string]: { title?: string, jobTitle?: string } }>({});
   const [currentlyEditing, setCurrentlyEditing] = useState<{ id: string, field: 'title' | 'jobTitle' } | null>(null);
+  // Add state for the floating widget
+  const [isWidgetExpanded, setIsWidgetExpanded] = useState(true);
 
   // Flatten all skills into a single array for the filter
   const allSkills = [
@@ -130,6 +132,15 @@ const CV: React.FC = () => {
     // Apply temporary styles for PDF generation
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = 'auto'; // Ensure scrolling is enabled
+
+    // Store the original dark mode state
+    const htmlElement = document.documentElement;
+    const wasDarkMode = htmlElement.classList.contains('dark');
+
+    // Force light mode for PDF generation
+    if (wasDarkMode) {
+      htmlElement.classList.remove('dark');
+    }
 
     // Hide the hidden items section from the PDF
     const hiddenItemsSection = document.querySelector('.hidden-items-section');
@@ -216,6 +227,11 @@ const CV: React.FC = () => {
         // Restore original styles after PDF generation
         document.body.style.overflow = originalStyle;
 
+        // Restore dark mode if it was active before
+        if (wasDarkMode) {
+          htmlElement.classList.add('dark');
+        }
+
         // Restore hidden items section display
         if (hiddenItemsSection) {
           hiddenItemsSection.setAttribute('style', `display: ${hiddenItemsSectionDisplay};`);
@@ -251,6 +267,11 @@ const CV: React.FC = () => {
       .catch(error => {
         console.error('Error generating PDF:', error);
         document.body.style.overflow = originalStyle;
+
+        // Restore dark mode if it was active before
+        if (wasDarkMode) {
+          htmlElement.classList.add('dark');
+        }
 
         // Restore hidden items section display
         if (hiddenItemsSection) {
@@ -298,119 +319,155 @@ const CV: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-10 py-4">
-      {/* Download PDF Button */}
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={generatePDF}
-          disabled={isGeneratingPDF}
-          className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors duration-200 ${isGeneratingPDF
-            ? 'bg-gray-400 cursor-not-allowed'
-            : 'bg-blue-600 hover:bg-blue-700 text-white'
-            }`}
-        >
-          {isGeneratingPDF ? (
-            <>
-              <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Generating PDF...
-            </>
-          ) : (
-            <>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-              </svg>
-              Download PDF
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Hidden Items Section */}
-      {hiddenItems.length > 0 && (
-        <section className="mb-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hidden-items-section">
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Hidden Items</h3>
-          <div className="flex flex-wrap gap-2">
-            {hiddenWorkExperience.map((job, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm"
-              >
-                <span>
-                  {currentlyEditing?.id === `${job.title}-${job.date}` && currentlyEditing?.field === 'title' ? (
-                    <input
-                      type="text"
-                      value={editableFields[`${job.title}-${job.date}`]?.title || job.title}
-                      onChange={(e) => handleEdit(`${job.title}-${job.date}`, 'title', e.target.value)}
-                      onBlur={stopEditing}
-                      autoFocus
-                      className="bg-transparent border-b border-gray-400 focus:outline-none focus:border-blue-500 w-full"
-                    />
-                  ) : (
-                    <>
-                      {getDisplayValue(job, 'title')}
-                      <button
-                        onClick={() => startEditing(`${job.title}-${job.date}`, 'title')}
-                        className="ml-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hide-in-pdf"
-                        title="Edit title"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                        </svg>
-                      </button>
-                    </>
-                  )}
-                </span>
-                <button
-                  onClick={() => toggleItemVisibility(job.title)}
-                  className="ml-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hide-in-pdf"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                  </svg>
-                </button>
-              </div>
-            ))}
-            <button
-              onClick={() => setHiddenItems([])}
-              className="px-3 py-1.5 bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full text-sm flex items-center gap-1 hide-in-pdf"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-              </svg>
-              Clear All
+      {/* Floating Widget for Tag Cloud and Hidden Items */}
+      <div className="fixed right-4 top-20 z-50 hide-in-pdf">
+        <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg transition-all duration-300 overflow-hidden ${isWidgetExpanded ? 'max-w-xs w-64' : 'max-w-[40px] w-10'}`}>
+          {/* Widget Header with Toggle Button */}
+          <div className="flex justify-between items-center p-3 bg-gray-100 dark:bg-gray-700 cursor-pointer" onClick={() => setIsWidgetExpanded(!isWidgetExpanded)}>
+            {isWidgetExpanded && <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Filters & Hidden Items</h3>}
+            <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex-shrink-0">
+              {isWidgetExpanded ? (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                </svg>
+              )}
             </button>
           </div>
-        </section>
-      )}
 
-      {/* Skills Filter */}
-      <section className="mb-8">
-        <div className="flex flex-wrap gap-2">
-          {allSkills.map((skill, index) => (
-            <button
-              key={index}
-              onClick={() => toggleSkill(skill)}
-              className={`px-3 py-1 rounded-full text-sm transition-colors duration-200 ${isSkillSelected(skill)
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-                }`}
-            >
-              {skill}
-            </button>
-          ))}
-          {selectedSkills.length > 0 && (
-            <button
-              onClick={clearSkills}
-              className="px-3 py-1 rounded-full text-sm bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-800/30 transition-colors duration-200"
-            >
-              Clear All Filters
-            </button>
+          {/* Widget Content */}
+          {isWidgetExpanded && (
+            <div className="p-3 max-h-[70vh] overflow-y-auto">
+              {/* Skills Filter */}
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Skills Filter</h4>
+                <div className="flex flex-wrap gap-2">
+                  {allSkills.map((skill, index) => (
+                    <button
+                      key={index}
+                      onClick={() => toggleSkill(skill)}
+                      className={`px-3 py-1 rounded-full text-xs transition-colors duration-200 ${isSkillSelected(skill)
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                        }`}
+                    >
+                      {skill}
+                    </button>
+                  ))}
+                  {selectedSkills.length > 0 && (
+                    <button
+                      onClick={clearSkills}
+                      className="px-3 py-1 rounded-full text-xs bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-800/30 transition-colors duration-200"
+                    >
+                      Clear All Filters
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Hidden Items Section */}
+              {hiddenItems.length > 0 && (
+                <div className="mb-4">
+                  <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Hidden Items</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {hiddenWorkExperience.map((job, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm"
+                      >
+                        <span>
+                          {currentlyEditing?.id === `${job.title}-${job.date}` && currentlyEditing?.field === 'title' ? (
+                            <input
+                              type="text"
+                              value={editableFields[`${job.title}-${job.date}`]?.title || job.title}
+                              onChange={(e) => handleEdit(`${job.title}-${job.date}`, 'title', e.target.value)}
+                              onBlur={stopEditing}
+                              autoFocus
+                              className="bg-transparent border-b border-gray-400 focus:outline-none focus:border-blue-500 w-full"
+                            />
+                          ) : (
+                            <>
+                              {getDisplayValue(job, 'title')}
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  startEditing(`${job.title}-${job.date}`, 'title');
+                                }}
+                                className="ml-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hide-in-pdf"
+                                title="Edit title"
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                              </button>
+                            </>
+                          )}
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleItemVisibility(job.title);
+                          }}
+                          className="ml-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hide-in-pdf"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      onClick={() => setHiddenItems([])}
+                      className="px-3 py-1.5 bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full text-sm flex items-center gap-1 hide-in-pdf"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                      </svg>
+                      Clear All
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Download PDF Button */}
+              <div className="mt-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    generatePDF();
+                  }}
+                  disabled={isGeneratingPDF}
+                  className={`w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm transition-colors duration-200 ${isGeneratingPDF
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}
+                >
+                  {isGeneratingPDF ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Generating PDF...
+                    </>
+                  ) : (
+                    <>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                      </svg>
+                      Download PDF
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
           )}
         </div>
-      </section>
+      </div>
 
       {/* CV Content - Add ref to the main content div */}
       <div ref={cvRef}>
