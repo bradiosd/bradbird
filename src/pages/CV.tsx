@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import html2pdf from 'html2pdf.js';
 import {
   portfolioItems,
   educationData,
@@ -122,16 +121,11 @@ const CV: React.FC = () => {
     return editableFields[jobId]?.[field] !== undefined ? editableFields[jobId][field] : job[field];
   };
 
-  // Function to handle PDF generation
+  // Function to handle PDF generation using browser's native print
   const generatePDF = () => {
     if (!cvRef.current) return;
 
-    // Set loading state
     setIsGeneratingPDF(true);
-
-    // Apply temporary styles for PDF generation
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = 'auto'; // Ensure scrolling is enabled
 
     // Store the original dark mode state
     const htmlElement = document.documentElement;
@@ -140,13 +134,6 @@ const CV: React.FC = () => {
     // Force light mode for PDF generation
     if (wasDarkMode) {
       htmlElement.classList.remove('dark');
-    }
-
-    // Hide the hidden items section from the PDF
-    const hiddenItemsSection = document.querySelector('.hidden-items-section');
-    const hiddenItemsSectionDisplay = hiddenItemsSection ? window.getComputedStyle(hiddenItemsSection).display : 'none';
-    if (hiddenItemsSection) {
-      hiddenItemsSection.setAttribute('style', 'display: none;');
     }
 
     // Hide all elements with the hide-in-pdf class
@@ -158,83 +145,58 @@ const CV: React.FC = () => {
       element.setAttribute('style', 'display: none !important;');
     });
 
-    // Adjust contact info icons for better alignment in PDF
-    const contactInfoIcons = document.querySelectorAll('.contact-info-icon');
-    const contactInfoIconStyles: { [key: string]: string } = {};
+    // Add print styles to body
+    const printStyles = document.createElement('style');
+    printStyles.innerHTML = `
+      @media print {
+        body * { visibility: hidden; }
+        .cv-content, .cv-content * { visibility: visible; }
+        .cv-content { position: absolute; left: 0; top: 0; width: 100%; }
+        .hide-in-pdf { display: none !important; }
+        
+        /* Improve print layout */
+        header { page-break-after: avoid; }
+        .space-y-8 > div { page-break-inside: avoid; break-inside: avoid; }
+        
+        /* Allow work experience to flow naturally after summary */
+        section:first-of-type { page-break-before: avoid; }
+        
+        /* Ensure proper margins */
+        @page { margin: 0.5in; }
+        
+        /* Fix colors for print */
+        .text-gray-900 { color: #111827 !important; }
+        .text-gray-600 { color: #4b5563 !important; }
+        .text-gray-500 { color: #6b7280 !important; }
+        
+        /* Skills badges styling for print */
+        .skills-badge {
+          border: 1px solid #d1d5db !important;
+          background-color: #f9fafb !important;
+          color: #374151 !important;
+        }
+      }
+    `;
+    document.head.appendChild(printStyles);
 
-    contactInfoIcons.forEach((icon, i) => {
-      contactInfoIconStyles[`icon-${i}`] = icon.getAttribute('style') || '';
-      icon.setAttribute('style', 'margin-top: 5px; height: 30px;');
-    });
+    // Add cv-content class to the main content
+    cvRef.current.classList.add('cv-content');
 
-    // Adjust skills badges for better alignment in PDF
-    const skillsBadges = document.querySelectorAll('.skills-badge');
-    const skillsBadgeStyles: { [key: string]: string } = {};
+    // Trigger browser's print dialog
+    setTimeout(() => {
+      window.print();
 
-    skillsBadges.forEach((badge, i) => {
-      skillsBadgeStyles[`badge-${i}`] = badge.getAttribute('style') || '';
-      badge.setAttribute('style', 'margin-top: 18px; padding-bottom: 18px; padding-left: 18px; padding-right: 18px;');
-    });
+      // Cleanup after print dialog
+      setTimeout(() => {
+        // Remove print styles
+        document.head.removeChild(printStyles);
 
-    // Add page-break-inside CSS to prevent items from being cut off
-    const sections = cvRef.current.querySelectorAll('section');
-    const jobItems = cvRef.current.querySelectorAll('.space-y-8 > div');
-    const originalStyles: { [key: string]: string } = {};
-
-    // Store original styles and apply page break styles
-    sections.forEach((section, i) => {
-      originalStyles[`section-${i}`] = section.getAttribute('style') || '';
-      section.setAttribute('style', 'page-break-inside: avoid; break-inside: avoid;');
-    });
-
-    jobItems.forEach((item, i) => {
-      originalStyles[`job-${i}`] = item.getAttribute('style') || '';
-      item.setAttribute('style', 'page-break-inside: avoid; break-inside: avoid;');
-    });
-
-    // Create a clone of the element to modify for PDF
-    const element = cvRef.current;
-
-    // Set PDF options with better page breaks and scaling
-    const opt = {
-      margin: [10, 10, 10, 10], // [top, right, bottom, left] margins in mm
-      filename: 'cv.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        letterRendering: true,
-        logging: false,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight
-      },
-      jsPDF: {
-        unit: 'mm',
-        format: 'a3',
-        orientation: 'portrait' as 'portrait',
-        compress: true,
-        hotfixes: ["px_scaling"]
-      },
-      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
-
-    // Generate PDF with promise handling
-    html2pdf()
-      .set(opt)
-      .from(element)
-      .save()
-      .then(() => {
-        // Restore original styles after PDF generation
-        document.body.style.overflow = originalStyle;
+        // Remove cv-content class
+        cvRef.current?.classList.remove('cv-content');
 
         // Restore dark mode if it was active before
         if (wasDarkMode) {
           htmlElement.classList.add('dark');
-        }
-
-        // Restore hidden items section display
-        if (hiddenItemsSection) {
-          hiddenItemsSection.setAttribute('style', `display: ${hiddenItemsSectionDisplay};`);
         }
 
         // Restore hide-in-pdf elements
@@ -242,69 +204,9 @@ const CV: React.FC = () => {
           element.setAttribute('style', hideInPdfStyles[`hide-${i}`]);
         });
 
-        // Restore contact info icons
-        contactInfoIcons.forEach((icon, i) => {
-          icon.setAttribute('style', contactInfoIconStyles[`icon-${i}`]);
-        });
-
-        // Restore skills badges
-        skillsBadges.forEach((badge, i) => {
-          badge.setAttribute('style', skillsBadgeStyles[`badge-${i}`]);
-        });
-
-        // Restore original styles for sections and job items
-        sections.forEach((section, i) => {
-          section.setAttribute('style', originalStyles[`section-${i}`]);
-        });
-
-        jobItems.forEach((item, i) => {
-          item.setAttribute('style', originalStyles[`job-${i}`]);
-        });
-
-        // Reset loading state
         setIsGeneratingPDF(false);
-      })
-      .catch(error => {
-        console.error('Error generating PDF:', error);
-        document.body.style.overflow = originalStyle;
-
-        // Restore dark mode if it was active before
-        if (wasDarkMode) {
-          htmlElement.classList.add('dark');
-        }
-
-        // Restore hidden items section display
-        if (hiddenItemsSection) {
-          hiddenItemsSection.setAttribute('style', `display: ${hiddenItemsSectionDisplay};`);
-        }
-
-        // Restore hide-in-pdf elements
-        hideInPdfElements.forEach((element, i) => {
-          element.setAttribute('style', hideInPdfStyles[`hide-${i}`]);
-        });
-
-        // Restore contact info icons
-        contactInfoIcons.forEach((icon, i) => {
-          icon.setAttribute('style', contactInfoIconStyles[`icon-${i}`]);
-        });
-
-        // Restore skills badges
-        skillsBadges.forEach((badge, i) => {
-          badge.setAttribute('style', skillsBadgeStyles[`badge-${i}`]);
-        });
-
-        // Restore original styles for sections and job items
-        sections.forEach((section, i) => {
-          section.setAttribute('style', originalStyles[`section-${i}`]);
-        });
-
-        jobItems.forEach((item, i) => {
-          item.setAttribute('style', originalStyles[`job-${i}`]);
-        });
-
-        // Reset loading state
-        setIsGeneratingPDF(false);
-      });
+      }, 100);
+    }, 100);
   };
 
   // Set hideSidebar to true when component mounts
