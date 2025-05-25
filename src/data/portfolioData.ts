@@ -440,8 +440,7 @@ export const personalData = {
   name: 'Brad Bird BSc',
   title: 'Senior Software Engineer',
   location: 'London, UK',
-  email: 'me@bradbird.co.uk',
-  phone: '+44 7873611073',
+  email: 'brad@128bitstudios.co.uk',
   shortSummary: 'Software engineering multi-tool. SaaS startup guru. Keen interest in cybersecurity. Blockchain enthusiast. AI lover.',
   summary: 'A highly skilled and results-driven Senior Software Engineer with over 15 years of experience delivering innovative solutions across more than 10 industries. Known for bridging the gap between structured corporate environments and dynamic startup ecosystems, bringing a versatile skill set and deep technical expertise to every project. Proficient in modernizing legacy systems, developing greenfield applications, and leading high-performing teams to deliver scalable, high-quality software that aligns with business objectives. Committed to continuous learning and adaptability to excel in fast-paced, evolving environments.'
 }; 
