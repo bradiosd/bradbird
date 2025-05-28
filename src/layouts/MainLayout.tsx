@@ -60,9 +60,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   <Link to="/portfolio" className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium">
                     Portfolio
                   </Link>
-                  <Link to="/cv" className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium">
+                  {/* <Link to="/cv" className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium">
                     CV
-                  </Link>
+                  </Link> */}
                 </div>
 
                 {/* Controls */}
