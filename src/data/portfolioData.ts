@@ -3,8 +3,8 @@ export const portfolioItems = {
   companies: [
     {
       title: '128 Bit Studios',
-      jobTitle: '',
-      description: 'Working as independent contractors building web based applications, software, games and mobile apps. We have a strong suite of skills being able to deliver end-to-end solutions that are scalable and reliable.',
+      jobTitle: 'Director',
+      description: 'I architected and developed full-stack web applications using React, NodeJS, and MongoDB, delivering 15+ client projects from concept to production. I managed client relationships, technical requirements gathering, and led a team of 3 developers. I implemented CI/CD pipelines and AWS infrastructure, reducing deployment time by 60% and improving system reliability.',
       images: {
         light: {
           path: '/portfolio/otebs-light.png',
@@ -15,14 +15,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 0.9 }
         }
       },
-      tags: ['JavaScript', 'Node.js', 'React', 'MongoDB', 'AWS'],
+      tags: ['JavaScript', 'NodeJS', 'React', 'MongoDB', 'AWS'],
       link: 'https://128bitstudios.co.uk',
       date: 'Aug 2017 - Present',
     },
     {
       title: 'Smart Bird Home Automations',
-      jobTitle: '',
-      description: 'Upgrading homes and businesses with affordable smart tech to make their lives easier and business operations run smoother. All hardware and software is retro fit with security in mind.',
+      jobTitle: 'Director',
+      description: 'I designed and built IoT automation systems using Raspberry Pi, custom sensors, and secure APIs. I developed the mobile app interface and backend services, implementing end-to-end encryption for all device communications. I personally delivered 8 home automation projects and 3 commercial installations.',
       images: {
         light: {
           path: '/portfolio/sbha-light.png',
@@ -35,12 +35,12 @@ export const portfolioItems = {
       },
       tags: ['Home Automation', 'Hardware', 'Networking', 'Security'],
       link: 'https://smartbird.io',
-      date: 'Jul 2024 - Present',
+      date: 'Jul 2024 - Oct 2024',
     },
     {
       title: 'Bradios Drones',
-      jobTitle: '',
-      description: 'We provide professional videography and photography for clients. We also provide drone operators to survey land and perform health and safety inspections where human intervention could be time consuming or dangerous.',
+      jobTitle: 'Director',
+      description: 'Led aerial photography and videography operations, managing drone fleet and safety protocols. Conducted land surveys and health inspections, developing operational procedures for high-risk environments.',
       images: {
         light: {
           path: '/portfolio/bradiosdrones-light.png',
@@ -57,8 +57,8 @@ export const portfolioItems = {
     },
     {
       title: 'Zesty Designs',
-      jobTitle: '',
-      description: 'Spent my late teens and early twenties designing and building websites for clients on a freelance basis while during college and alongside my first couple of full-time jobs.',
+      jobTitle: 'Director',
+      description: 'Developed custom websites and web applications for diverse client base, managing full project lifecycle from design to deployment. Built foundational skills in front-end and back-end development while balancing academic commitments.',
       images: {
         light: {
           path: '/portfolio/zesty-light.png',
@@ -77,8 +77,8 @@ export const portfolioItems = {
   jointStartups: [
     {
       title: 'Quote Away AI',
-      jobTitle: 'Chief Technology Officer',
-      description: 'Leading the technology behind innovative AI solutions within the travel industry. Started in December and launching our MVP after 1 month of development, we now have over 350 users and those users have made over 8000 quotes.',
+      jobTitle: 'Co-Founder & Lead Developer',
+      description: 'Co-founded and led development of an AI-powered quoting platform for the travel industry. I built the application using Next.js, combining a React-based frontend with the framework\'s backend capabilities. I also developed a separate AI service worker in NodeJS that integrates with OpenAI APIs for intelligent quote generation. I implemented real-time features, user authentication, and delivered the MVP in just 1 month. The platform has since grown to 350+ users generating over 8,000 quotes.',
       images: {
         light: {
           path: '/portfolio/quoteawayai-dark.png',
@@ -89,72 +89,20 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 0.7 }
         }
       },
-      tags: ['React', 'Node.js', 'AI', 'OpenAI', 'MongoDB'],
+      tags: ['React', 'NodeJS', 'AI', 'MongoDB', 'Next.js', 'AWS', 'TypeScript'],
       link: 'https://quoteawayai.com',
       date: 'Jan 2025 - Present',
-    },
-    {
-      title: 'Your CV Video',
-      jobTitle: 'Head of Platform',
-      description: 'YourCVVideo.Com was established to assist Recruitment Consultants and HR Professionals to cut down on the amount of time that they spend looking at CV\'s from Jobseekers. The platform enables Recruiters to find suitable Jobseekers in a fraction of the time through video CVs.',
-      images: {
-        light: {
-          path: '/portfolio/yourcvvideo-light.png',
-          position: { x: 50, y: 50, scale: 1.4 }
-        },
-        dark: {
-          path: '/portfolio/yourcvvideo-dark.png',
-          position: { x: 50, y: 50, scale: 1.4 }
-        }
-      },
-      tags: ['AWS', 'PHP', 'Laravel', 'MySQL', 'Video Processing'],
-      link: 'https://yourcvvideo.com',
-      date: 'Apr 2019 - Present',
     }
   ],
   soloStartups: [
-    {
-      title: 'WordPress Scanner',
-      jobTitle: 'Founder',
-      description: 'A comprehensive WordPress security assessment tool that helps identify vulnerabilities and security issues in WordPress sites. The scanner detects popular plugins and themes, providing detailed analysis of potential security risks. Each scan generates a comprehensive PDF report of findings along with a step-by-step guide for remediation, making security accessible for WordPress site owners.',
-      images: {
-        light: {
-          path: '/portfolio/wpscanner-dark.png',
-          position: { x: 50, y: 50, scale: 0.6 }
-        },
-        dark: {
-          path: '/portfolio/wpscanner-dark.png',
-          position: { x: 50, y: 50, scale: 0.6 }
-        }
-      },
-      tags: ['PHP', 'WordPress', 'Security', 'AWS', 'Cybersecurity'],
-      link: 'https://wpscanner.128bitstudios.co.uk',
-      date: 'Dec 2024 - Present',
-    },
-    {
-      title: 'MotoStats',
-      jobTitle: 'Founder',
-      description: 'A petrol-head community hub and vehicle specs database. We collate data from the most up to date sources and present it in a simple to use mobile app. We also provide community driven map data for the best driving and motorcycling routes in the country.',
-      images: {
-        light: {
-          path: '/portfolio/motostats-dark.png',
-          position: { x: 50, y: 50, scale: 0.6 }
-        },
-        dark: {
-          path: '/portfolio/motostats-dark.png',
-          position: { x: 50, y: 50, scale: 0.6 }
-        }
-      },
-      tags: ['React Native', 'Node.js', 'MongoDB', 'Express', 'Maps API'],
-      link: null,
-      date: 'Aug 2014 - Aug 2016',
-    }
+
+
   ],
   clientWork: [
     {
       title: 'Untapped',
-      jobTitle: 'Technical Lead',
-      description: 'Transformed a legacy monolithic MVC C# system into a modern, decoupled architecture, resulting in a 40% performance improvement and significantly reduced system complexity. By implementing a backend API and frontend application, the new system facilitated seamless third-party integrations and enhanced maintainability for future growth.',
+      jobTitle: 'Technical Lead (Contractor)',
+      description: 'Transformed a legacy monolithic MVC C# system into a modern microservices architecture, reducing response times by 40% and significantly improving performance and maintainability. I personally rewrote the frontend in React, implemented JWT authentication and third-party integrations, and collaborated with another developer who focused on updating the existing C# backend to work with RESTful responses.',
       images: {
         light: {
           path: '/portfolio/untapped-light.png',
@@ -165,14 +113,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 0.6 }
         }
       },
-      tags: ['C#', '.NET', 'React', 'API Design', 'System Architecture'],
+      tags: ['C#', 'React', 'HapiJS'],
       link: 'https://thisisuntapped.com',
-      date: 'Jun 2021 - Present',
+      date: 'Jun 2021 - Sep 2021',
     },
     {
       title: 'Hargreaves Lansdown',
-      jobTitle: 'Senior Developer',
-      description: 'Pioneered the adoption of a microservices architecture in Node.js, a first for the organization\'s in-house projects. Delivered a robust abstraction layer to shield databases from direct exposure, significantly enhancing security and reducing the risk of data breaches. This initiative set a new standard for scalable and secure application design within the company.',
+      jobTitle: 'Senior Developer (Contractor)',
+      description: 'Pioneered the first microservices architecture in NodeJS for the organisation, delivering a scalable and maintainable solution. I built a database abstraction layer and API gateway, and significantly improved system performance by introducing caching to the microservices, which acted as middleware for the legacy system. I also helped train 8 COBOL developers on modern NodeJS microservice patterns to support the transition.',
       images: {
         light: {
           path: '/portfolio/hargreaveslansdown-light.png',
@@ -183,14 +131,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 1 }
         }
       },
-      tags: ['Node.js', 'Microservices', 'Security', 'Database Design', 'API'],
+      tags: ['NodeJS', 'Microservices', 'AWS', 'OracleDB', 'MySQL', 'TypeScript', 'Mentoring'],
       link: 'https://www.hl.co.uk',
       date: 'Jul 2022 - Jun 2023',
     },
     {
       title: 'Itriom',
-      jobTitle: 'Technical Lead',
-      description: 'Successfully delivered a minimum viable product within three months, enabling the client to present a fully functional solution to shareholders. This milestone demonstrated a rapid yet reliable development process, aligning technical capabilities with critical business objectives.',
+      jobTitle: 'Technical Lead (Contractor)',
+      description: 'Delivered a minimum viable product within 3 months to support shareholder presentations. I personally developed the MVP React frontend and NodeJS backend, implemented authentication, real-time features, and AWS deployment, while leading an offshore team of 3 Polish developers to ensure timely delivery.',
       images: {
         light: {
           path: '/portfolio/itriom-light.svg',
@@ -201,14 +149,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 2.4 }
         }
       },
-      tags: ['React', 'Node.js', 'TypeScript', 'MongoDB', 'AWS'],
+      tags: ['React', 'NodeJS', 'TypeScript', 'MongoDB', 'AWS'],
       link: 'https://itriom.com',
       date: 'Mar 2022 - May 2022',
     },
     {
-      title: 'DEFRA',
-      jobTitle: 'Senior Developer',
-      description: 'Worked on a greenfield project to digitise wildlife licensing applications for the DDTS (Digital, Data and Technology Services) team.',
+      title: 'DEFRA (GovUK)',
+      jobTitle: 'Senior Developer (Contractor)',
+      description: 'Worked on a greenfield project to digitise wildlife licensing applications for the DDTS team. I worked with other developers to build the NodeJS and React application, handled form validation and document uploads, designed the PostgreSQL schema, and integrated with government APIs, delivering the core features within a 3-month contract.',
       images: {
         light: {
           path: '/portfolio/defra-dark.svg',
@@ -219,14 +167,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 0.6 }
         }
       },
-      tags: ['Node.js', 'Express', 'React', 'PostgreSQL', 'Government'],
+      tags: ['NodeJS', 'ExpressJS', 'React', 'PostgreSQL'],
       link: 'https://defra.gov.uk',
       date: 'Dec 2021 - Mar 2022',
     },
     {
-      title: 'Oplo',
-      jobTitle: 'Team Lead',
-      description: 'Mentoring and leading junior developers within the Fintech industry (primarily loans) through a consulting organisation.',
+      title: 'Penta Consulting',
+      jobTitle: 'Team Lead & Senior Developer (Contractor)',
+      description: 'I mentored 4 junior developers. I implemented code review processes and pair programming sessions, improving code quality. I personally managed the technical delivery and client communication.',
       images: {
         light: {
           path: '/portfolio/oplo-light.png',
@@ -237,14 +185,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 0.8 }
         }
       },
-      tags: ['Team Leadership', 'Mentoring', 'Fintech', 'JavaScript', 'SQL'],
+      tags: ['MySQL', 'NodeJS', 'Kafka', 'Mentoring'],
       link: 'https://oplo.com',
       date: 'Mar 2021 - Jun 2021',
     },
     {
-      title: 'VMD',
-      jobTitle: 'Senior Developer',
-      description: 'Working in the DDTS team to digitise animal pharmaceutical marketing authorisation requests in a post-brexit United Kingdom.',
+      title: 'VMD (GovUK)',
+      jobTitle: 'Senior Developer & DevOps Engineer (Contractor)',
+      description: 'Digitised animal pharmaceutical marketing authorisation processes post-Brexit for the DDTS team. I developed complex form workflows using Hapi.js with Handlebars for the frontend, built MongoDB-backed data services, and integrated with government APIs. I also handled document management and DevOps delivery over this 2-year contract.',
       images: {
         light: {
           path: '/portfolio/vmd-light.png',
@@ -255,14 +203,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 1.3 }
         }
       },
-      tags: ['Node.js', 'React', 'AWS', 'PostgreSQL', 'Government'],
+      tags: ['NodeJS', 'React', 'AWS', 'MongoDB', 'HapiJS'],
       link: 'https://www.gov.uk/government/organisations/veterinary-medicines-directorate',
       date: 'Feb 2019 - Mar 2021',
     },
     {
-      title: 'esure',
-      jobTitle: 'Senior Developer',
-      description: 'Worked in the MTA (mid-term adjustment) team allowing customers to modify their insurance details inbetween renewals and providing mid-term quote adjustments.',
+      title: 'eSure',
+      jobTitle: 'Senior Developer (Contractor)',
+      description: 'Worked in the MTA (mid-term adjustment) team for insurance policy changes between renewals. I developed insurance calculation logic and customer portal features using NestJS (a NodeJS framework with TypeScript), integrated with Oracle databases, and delivered REST APIs within the 3-month contract.',
       images: {
         light: {
           path: '/portfolio/esure-light.png',
@@ -273,14 +221,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 1.5 }
         }
       },
-      tags: ['Java', 'Spring', 'Oracle', 'JavaScript', 'Insurance'],
+      tags: ['NodeJS', 'NestJS', 'TypeScript', 'OracleDB'],
       link: 'https://www.esure.com',
       date: 'Nov 2018 - Feb 2019',
     },
     {
       title: 'Shell',
-      jobTitle: 'Senior Developer',
-      description: 'Greenfield project in the EV (electric vehicle) market working to provide energy to electric cars at specific times in the day taking advantage of low supplier rates.',
+      jobTitle: 'Senior Developer (Contractor)',
+      description: 'Greenfield project in the EV market focused on delivering energy to electric vehicles during off-peak hours. I developed the mobile application using Ionic (Angular-based), implemented real-time pricing algorithms and IoT integrations, and delivered the backend and MongoDB-powered APIs to support the charging network.',
       images: {
         light: {
           path: '/portfolio/shell-light.png',
@@ -291,14 +239,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 1.3 }
         }
       },
-      tags: ['Node.js', 'React', 'MongoDB', 'IoT', 'Energy'],
+      tags: ['NodeJS', 'React', 'MongoDB', 'Ionic', 'Capacitor', 'Mobile Development'],
       link: 'https://www.shell.co.uk/electric-vehicle-charging.html',
       date: 'May 2018 - Nov 2018',
     },
     {
-      title: 'LSHTM',
-      jobTitle: 'Senior Developer',
-      description: 'Greenfield biobank project to analyse blood samples and anonymise the data to reduce bias on statistics analysis reports.',
+      title: 'London School of Hygiene and Tropical Medicine, U. of London',
+      jobTitle: 'Senior Developer (Contractor)',
+      description: 'Built a greenfield biobank data system to anonymise blood sample data and reduce statistical bias. I developed the application using PHP and Laravel with Angular for the frontend, created anonymisation algorithms, implemented statistical tools, and delivered REST APIs and MySQL infrastructure for sample tracking.',
       images: {
         light: {
           path: '/portfolio/lshtm-light.png',
@@ -309,7 +257,7 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 1.5 }
         }
       },
-      tags: ['PHP', 'Laravel', 'MySQL', 'Data Analysis', 'Healthcare'],
+      tags: ['PHP', 'Laravel', 'MySQL', 'Angular'],
       link: 'https://www.lshtm.ac.uk',
       date: 'Oct 2017 - May 2018',
     }
@@ -317,8 +265,8 @@ export const portfolioItems = {
   jobs: [
     {
       title: 'Paytently',
-      jobTitle: 'Head of Platform',
-      description: 'Founding engineer for a payments company. Mostly driving the performance of the teams and leading the DevOps platform. Utlising Terraform on AWS cloud infrastructure and using DORA metrics to ensure team success.',
+      jobTitle: 'Lead Platform Engineer',
+      description: 'Founding engineer for a payments company, driving both performance and infrastructure. I architected the AWS infrastructure with Terraform, implemented CI/CD pipelines that reduced deployment time by 80%, and led a team of 3 developers. I also established DORA metrics to improve team velocity.',
       images: {
         light: {
           path: '/portfolio/paytently-light.png',
@@ -329,14 +277,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 0.8 }
         }
       },
-      tags: ['AWS', 'Terraform', 'DevOps', 'Node.js', 'React', 'Payments'],
+      tags: ['AWS', 'Terraform', 'NodeJS', 'React', 'C#', 'TypeScript'],
       link: 'https://paytently.com',
       date: 'Jun 2023 - Jul 2024',
     },
     {
       title: 'SO Technology',
       jobTitle: 'Developer',
-      description: 'Full-time position as Developer at SO Technology. Developing multiple projects for questionnaires and survey systems, property management systems and more.',
+      description: 'Full-time developer building various client platforms. I helped deliver 3 major projects including questionnaire/survey systems and property management tools. I worked with PHP and Laravel to implement complex form logic, data analysis tools, and integrated third-party APIs across 2.5 years.',
       images: {
         light: {
           path: '/portfolio/so-light.svg',
@@ -347,14 +295,14 @@ export const portfolioItems = {
           position: { x: 50, y: 50, scale: 2 }
         }
       },
-      tags: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'jQuery'],
+      tags: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'Angular'],
       link: 'https://sotechnology.co.uk',
       date: 'Jan 2015 - Oct 2017',
     },
     {
       title: 'We Know Data',
       jobTitle: 'Developer',
-      description: 'We Know Data are based in London specialising in website development, mobile applications and database development, providing faultless and reliable experience across all industries.',
+      description: 'Developed bespoke websites and mobile apps across various industries. I delivered 4 custom client projects and maintained 8 legacy applications. My responsibilities included full-stack development using PHP, HTML, CSS, and JavaScript, and building robust MySQL databases and third-party API integrations. During my time here, I also helped develop an internal web application for Apple to manage their global PO system within their London branch.',
       images: {
         light: {
           path: '/portfolio/weknowdata-light.png',
@@ -404,25 +352,25 @@ export const certificationData = [
 // Updated skills data
 export const skillsData = {
   languages: [
-    'TypeScript', 'JavaScript', 'Python', 'Bash Scripting', 'C#'
+    'TypeScript', 'JavaScript', 'Python', 'Bash Scripting', 'C#', 'PHP', 'HTML', 'CSS', 'SQL'
   ],
   frameworks: [
-    'React', 'React Native', 'NestJS', 'Node.js', 'Express', 'GraphQL', 'Hapi.js', 'Capacitor'
+    'React', 'React Native', 'NestJS', 'NodeJS', 'Express', 'GraphQL', 'Hapi.js', 'Capacitor', 'Laravel', 'Angular', 'Next.js', 'Ionic'
   ],
   tools: [
-    'Docker', 'Kubernetes', 'Terraform', 'Jenkins', 'GitLab', 'PagerDuty', 'Travis CI'
+    'Docker', 'Kubernetes', 'Terraform', 'Jenkins', 'GitLab', 'CI/CD', 'Kafka', 'Dapr', 'RabbitMQ'
   ],
   databases: [
-    'MongoDB', 'MySQL'
+    'MongoDB', 'MySQL', 'PostgreSQL', 'OracleDB'
   ],
   cloud: [
-    'AWS', 'Azure'
+    'AWS', 'Azure', 'GCP'
   ],
   testing: [
     'Jest', 'Cucumber', 'Cypress'
   ],
   other: [
-    'Event-Driven Architectures (Kafka, DAPR)', 'Microservices Architecture', 'CI/CD Orchestration', 'UX/UI Design'
+    'Event-Driven Architectures', 'Microservices Architecture', 'CI/CD Orchestration', 'UX/UI Design', 'AI', 'Mobile Development', 'Mentoring', 'Home Automation', 'Hardware', 'Networking', 'Security', 'Videography', 'Photography', 'Drones'
   ],
   soft: [
     'Get it done mentality', 'Excellent people skills', 'Requirements gathering and analysis',
@@ -440,7 +388,7 @@ export const personalData = {
   name: 'Brad Bird BSc',
   title: 'Senior Software Engineer',
   location: 'London, UK',
-  email: 'brad@128bitstudios.co.uk',
+  email: 'jobs@bradbird.co.uk',
   phone: '+44 7783 309295',
   shortSummary: 'Software engineering multi-tool. SaaS startup guru. Keen interest in cybersecurity. Blockchain enthusiast. AI lover.',
   summary: 'A highly skilled and results-driven Senior Software Engineer with over 15 years of experience delivering innovative solutions across more than 10 industries. Known for bridging the gap between structured corporate environments and dynamic startup ecosystems, bringing a versatile skill set and deep technical expertise to every project. Proficient in modernizing legacy systems, developing greenfield applications, and leading high-performing teams to deliver scalable, high-quality software that aligns with business objectives. Committed to continuous learning and adaptability to excel in fast-paced, evolving environments.'

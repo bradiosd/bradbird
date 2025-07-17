@@ -158,8 +158,7 @@ const CV: React.FC = () => {
         header { page-break-after: avoid; }
         .space-y-8 > div { page-break-inside: avoid; break-inside: avoid; }
         
-        /* Allow work experience to flow naturally after summary */
-        section:first-of-type { page-break-before: avoid; }
+
         
         /* Ensure proper margins */
         @page { margin: 0.5in; }
@@ -169,11 +168,39 @@ const CV: React.FC = () => {
         .text-gray-600 { color: #4b5563 !important; }
         .text-gray-500 { color: #6b7280 !important; }
         
-        /* Skills badges styling for print */
+        /* Force certifications to start on new page */
+        section:nth-of-type(3) { page-break-before: always; }
+        
+        /* Maintain 3-column grid for technical skills in print */
+        .grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 {
+          display: grid !important;
+          grid-template-columns: repeat(3, 1fr) !important;
+          gap: 1.5rem !important;
+        }
+        
+        /* Force single column for other skills sections */
+        .md\\:col-span-2.lg\\:col-span-3 {
+          grid-column: 1 / -1 !important;
+        }
+        
+        /* Skills badges styling for print - convert to comma-separated list */
         .skills-badge {
-          border: 1px solid #d1d5db !important;
-          background-color: #f9fafb !important;
-          color: #374151 !important;
+          background: transparent !important;
+          border: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          border-radius: 0 !important;
+          display: inline !important;
+        }
+        
+        /* Ensure skills flow as text */
+        .flex.flex-wrap {
+          display: block !important;
+        }
+        
+        /* Add commas between skills in print */
+        .skills-badge:not(:last-child)::after {
+          content: ", " !important;
         }
       }
     `;
@@ -374,16 +401,8 @@ const CV: React.FC = () => {
       {/* CV Content - Add ref to the main content div */}
       <div ref={cvRef}>
         {/* Header */}
-        <header className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8">
+        <header className="mb-4 border-gray-200 dark:border-gray-700 pb-8">
           <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="w-48 h-48 md:w-48 md:h-48 flex-shrink-0 overflow-hidden rounded-full border-4 border-gray-200 dark:border-gray-700">
-              <img
-                src="/bradiosd.jpeg"
-                alt={personalData.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
             <div className="text-center md:text-left flex-grow">
               <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                 <div>
@@ -432,6 +451,148 @@ const CV: React.FC = () => {
             </p>
           </div>
         </header >
+
+        {/* Skills */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+            Technical Skills
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Programming Languages</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.languages.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none ${isSkillSelected(skill)
+                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold'
+                      : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                      }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Frameworks & Libraries</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.frameworks.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none ${isSkillSelected(skill)
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 font-semibold'
+                      : 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
+                      }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Tools & DevOps</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.tools.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none ${isSkillSelected(skill)
+                      ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-semibold'
+                      : 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400'
+                      }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Databases</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.databases.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none ${isSkillSelected(skill)
+                      ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 font-semibold'
+                      : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400'
+                      }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Cloud Platforms</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.cloud.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none ${isSkillSelected(skill)
+                      ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold'
+                      : 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
+                      }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Testing</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.testing.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none ${isSkillSelected(skill)
+                      ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-semibold'
+                      : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+                      }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="md:col-span-2 lg:col-span-3">
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Other Technical Skills</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.other.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none ${isSkillSelected(skill)
+                      ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 font-semibold'
+                      : 'bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400'
+                      }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="md:col-span-2 lg:col-span-3">
+              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Soft Skills</h3>
+              <div className="flex flex-wrap gap-2 mt-2 print:flex-nowrap print:gap-0">
+                {skillsData.soft.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-sm flex items-center justify-center skills-badge print:bg-transparent print:px-0 print:py-0 print:rounded-none print:border-none"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Work Experience */}
         <section className="mb-12">
@@ -544,35 +705,6 @@ const CV: React.FC = () => {
           </div>
         </section>
 
-        {/* Education */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-            Education
-          </h2>
-
-          <div className="space-y-6">
-            {educationData.map((edu, index) => (
-              <div key={index} className="grid grid-cols-1 md:grid-cols-6 gap-4">
-                <div className="md:col-span-1 text-gray-500 dark:text-gray-400">
-                  <div className="text-sm">{edu.graduationDate}</div>
-                </div>
-
-                <div className="md:col-span-5">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {edu.institution}
-                  </h3>
-                  <div className="text-md text-gray-600 dark:text-gray-400">
-                    {edu.degree} in {edu.field}
-                  </div>
-                  <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    {edu.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* Certifications */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
@@ -602,145 +734,32 @@ const CV: React.FC = () => {
           </div>
         </section>
 
-        {/* Skills */}
+        {/* Education */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-            Technical Skills
+            Education
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Programming Languages</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.languages.map((skill, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge ${isSkillSelected(skill)
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold'
-                      : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                      }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <div className="space-y-6">
+            {educationData.map((edu, index) => (
+              <div key={index} className="grid grid-cols-1 md:grid-cols-6 gap-4">
+                <div className="md:col-span-1 text-gray-500 dark:text-gray-400">
+                  <div className="text-sm">{edu.graduationDate}</div>
+                </div>
 
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Frameworks & Libraries</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.frameworks.map((skill, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge ${isSkillSelected(skill)
-                      ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 font-semibold'
-                      : 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
-                      }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
+                <div className="md:col-span-5">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {edu.institution}
+                  </h3>
+                  <div className="text-md text-gray-600 dark:text-gray-400">
+                    {edu.degree} in {edu.field}
+                  </div>
+                  <p className="mt-2 text-gray-600 dark:text-gray-400">
+                    {edu.description}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Tools & DevOps</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.tools.map((skill, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge ${isSkillSelected(skill)
-                      ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-semibold'
-                      : 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400'
-                      }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Databases</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.databases.map((skill, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge ${isSkillSelected(skill)
-                      ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 font-semibold'
-                      : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400'
-                      }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Cloud Platforms</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.cloud.map((skill, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge ${isSkillSelected(skill)
-                      ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold'
-                      : 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
-                      }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Testing</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.testing.map((skill, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge ${isSkillSelected(skill)
-                      ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-semibold'
-                      : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-                      }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="md:col-span-2 lg:col-span-3">
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Other Technical Skills</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.other.map((skill, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1.5 rounded-full text-sm flex items-center justify-center skills-badge ${isSkillSelected(skill)
-                      ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 font-semibold'
-                      : 'bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400'
-                      }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="md:col-span-2 lg:col-span-3">
-              <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Soft Skills</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {skillsData.soft.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-sm flex items-center justify-center skills-badge"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
