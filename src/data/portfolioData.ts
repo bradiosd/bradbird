@@ -370,7 +370,7 @@ export const skillsData = {
     'Jest', 'Cucumber', 'Cypress'
   ],
   other: [
-    'Event-Driven Architectures', 'Microservices Architecture', 'CI/CD Orchestration', 'UX/UI Design', 'AI', 'Mobile Development', 'Mentoring', 'Home Automation', 'Hardware', 'Networking', 'Security', 'Videography', 'Photography', 'Drones'
+    'Swagger Docs', 'Event-Driven Architectures', 'Microservices Architecture', 'CI/CD Orchestration', 'UX/UI Design', 'AI', 'Mobile Development', 'Mentoring', 'Home Automation', 'Hardware', 'Networking', 'Security', 'Videography', 'Photography', 'Drones'
   ],
   soft: [
     'Get it done mentality', 'Excellent people skills', 'Requirements gathering and analysis',
